@@ -65,6 +65,6 @@ Kompleksitas Waktu:
 
 ---
 
-## 👨‍🏫 Konteks Akademik
+## Konteks Akademik
 
 Proyek ini disusun sebagai bagian dari persyaratan seleksi Calon Asisten Praktikum Struktur Data Semester Genap 2025/2026.
