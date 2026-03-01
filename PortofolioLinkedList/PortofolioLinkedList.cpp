@@ -1,20 +1,160 @@
-// PortofolioLinkedList.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
 #include <iostream>
+#include <string>
+using namespace std;
 
-int main()
-{
-    std::cout << "Hello World!\n";
+struct Saham {
+    string kode;
+    string nama;
+    double harga;
+    int lot;
+    double total;
+};
+
+struct Node {
+    Saham data;
+    Node* next;
+};
+
+Node* head = NULL;
+
+// ================= TAMBAH =================
+void tambahSaham() {
+    Node* newNode = new Node();
+
+    cout << "Kode Saham: ";
+    cin >> newNode->data.kode;
+
+    cin.ignore();
+    cout << "Nama Perusahaan: ";
+    getline(cin, newNode->data.nama);
+
+    cout << "Harga Beli: ";
+    cin >> newNode->data.harga;
+
+    cout << "Jumlah Lot: ";
+    cin >> newNode->data.lot;
+
+    newNode->data.total = newNode->data.harga * newNode->data.lot;
+    newNode->next = NULL;
+
+    if (head == NULL) {
+        head = newNode;
+    }
+    else {
+        Node* temp = head;
+        while (temp->next != NULL)
+            temp = temp->next;
+        temp->next = newNode;
+    }
+
+    cout << "Saham berhasil ditambahkan!\n";
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
+// ================= TAMPIL =================
+void tampilkan() {
+    if (head == NULL) {
+        cout << "Portofolio kosong.\n";
+        return;
+    }
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+    Node* temp = head;
+    cout << "\n=== PORTOFOLIO SAHAM ===\n";
+    while (temp != NULL) {
+        cout << "Kode  : " << temp->data.kode << endl;
+        cout << "Nama  : " << temp->data.nama << endl;
+        cout << "Total : " << temp->data.total << endl;
+        cout << "------------------------\n";
+        temp = temp->next;
+    }
+}
+
+// ================= CARI =================
+void cariSaham() {
+    string kode;
+    cout << "Masukkan kode saham: ";
+    cin >> kode;
+
+    Node* temp = head;
+    while (temp != NULL) {
+        if (temp->data.kode == kode) {
+            cout << "Data ditemukan!\n";
+            cout << "Nama  : " << temp->data.nama << endl;
+            cout << "Total : " << temp->data.total << endl;
+            return;
+        }
+        temp = temp->next;
+    }
+
+    cout << "Saham tidak ditemukan.\n";
+}
+
+// ================= HAPUS =================
+void hapusSaham() {
+    string kode;
+    cout << "Masukkan kode saham yang dihapus: ";
+    cin >> kode;
+
+    Node* temp = head;
+    Node* prev = NULL;
+
+    while (temp != NULL && temp->data.kode != kode) {
+        prev = temp;
+        temp = temp->next;
+    }
+
+    if (temp == NULL) {
+        cout << "Saham tidak ditemukan.\n";
+        return;
+    }
+
+    if (prev == NULL)
+        head = temp->next;
+    else
+        prev->next = temp->next;
+
+    delete temp;
+    cout << "Saham berhasil dihapus.\n";
+}
+
+// ================= TOTAL =================
+void totalPortofolio() {
+    double total = 0;
+    Node* temp = head;
+
+    while (temp != NULL) {
+        total += temp->data.total;
+        temp = temp->next;
+    }
+
+    cout << "Total nilai portofolio: " << total << endl;
+}
+
+// ================= MAIN =================
+int main() {
+    int pilihan;
+
+    do {
+        cout << "\n===== STOCK PORTFOLIO SYSTEM =====\n";
+        cout << "1. Tambah Saham\n";
+        cout << "2. Tampilkan\n";
+        cout << "3. Cari Saham\n";
+        cout << "4. Hapus Saham\n";
+        cout << "5. Total Portofolio\n";
+        cout << "0. Keluar\n";
+        cout << "Pilihan: ";
+        cin >> pilihan;
+
+        switch (pilihan) {
+        case 1: tambahSaham(); break;
+        case 2: tampilkan(); break;
+        case 3: cariSaham(); break;
+        case 4: hapusSaham(); break;
+        case 5: totalPortofolio(); break;
+        case 0: cout << "Keluar...\n"; break;
+        default: cout << "Pilihan tidak valid!\n";
+        }
+
+    } while (pilihan != 0);
+
+    return 0;
+}
