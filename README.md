@@ -1,6 +1,6 @@
 # Mini Stock Trading System (C++)
 
-Proyek ini merupakan simulasi sistem trading saham berbasis console yang mengimplementasikan struktur data fundamental menggunakan bahasa C++ tanpa menggunakan STL container.
+Proyek ini merupakan simulasi sistem trading saham berbasis console yang mengimplementasikan struktur data fundamental menggunakan bahasa C++.
 
 Proyek ini dikembangkan sebagai portofolio untuk seleksi Asisten Praktikum Mata Kuliah Struktur Data.
 
